@@ -7,7 +7,7 @@ const { interface, bytecode } = require('../compiler.js');
 
 let accounts;
 let inbox;
-
+const INITIAL_STRING = 'Hi there!';
 beforeEach(async ()=> {
     //Get a list of all accounts
     /*web3.eth.getAccounts().then(fetchedAccounts =>{
@@ -32,4 +32,11 @@ describe('Inbox',()=>{
         const message = await inbox.methods.message().call();
         assert.equal(message, 'Hi there');
     });
+    it('can change a message', async () => {
+        const message = 'bye';
+        await inbox.methods.setMessage(message).send({from:accounts[0]});
+        const resMessage = await inbox.methods.message().call();
+        assert.equal(message, resMessage);
+    });
+
 })
