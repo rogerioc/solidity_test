@@ -16,13 +16,11 @@ const deploy = async() => {
     const accounts = await web3.eth.getAccounts();
     const account = accounts[0];
     console.log('Attempting do deploy from account',account);
-
     //Use on of these accounts to deploy
     //the contract
     const result = await new web3.eth.Contract(JSON.parse(interface))
-    .deploy({data:bytecode})
+    .deploy({data:bytecode,arguments:['Hi there']})
     .send({ from: account, gas:'1000000' })    
-    console.log(interface);
     console.log('Contract deploy to',result.options.address);
 }
 deploy();
